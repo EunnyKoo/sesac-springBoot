@@ -54,6 +54,9 @@ public class HelloController {
         person2.add(new Person("shin", 60));
         model.addAttribute("person2", person2);
 
+        Person p = new Person("h", 10);
+        System.out.println(p.getName());
+
         return "prac";
     }
 }
