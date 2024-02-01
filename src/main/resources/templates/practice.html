@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--    <div>-->
+<!--        <a href="/introduce/홍길동">-->
+<!--            내 이름은 홍길동-->
+<!--        </a>-->
+<!--    </div>-->
+
+<!--    <form action="/introduce2" method="get" style="margin-right: 20px;">-->
+<!--        <button type="submit">Get 전송</button>-->
+<!--    </form>-->
+
+    <form action="/postInfo" method="post" target="_blank" name="register">
+        이름 <input type="text" name="name" required minlength="2"/>
+        <fieldset>
+            <legend>성별</legend>
+            <input type="radio" name="gender" value="male" id="male"> <label for="male">남자</label>
+            <input type="radio" name="gender" value="female" id="female"> <label for="female">여자</label> <br />
+        </fieldset>
+
+        <fieldset>
+            <legend>생년월일</legend>
+            <select name="year" id="year"></select>
+            <select name="month" id="month"></select>
+            <select name="day" id="day"></select>
+        </fieldset>
+
+        <fieldset>
+            <legend>관심사</legend> <br />
+            <input type="checkbox" name="interest" value="travel">여행<label for="travel"></label>
+            <input type="checkbox" name="interest" value="fashion">패션<label for="fashion"></label>
+            <input type="checkbox" name="interest" value="food">음식<label for="food"></label>
+        </fieldset>
+
+        <br />
+
+        <input type="submit" value="회원가입">
+    </form>
+
+<script>
+    const yearSelect = document.getElementById("year");
+    const monthSelect = document.getElementById("month");
+    const dateSelect = document.getElementById("date");
+
+    for (let i = 1930; i <= 2023; i++) {
+        const option = document.createElement("option");
+        option.textContent = i;
+        yearSelect.appendChild(option);
+    }
+
+    monthSelect.addEventListener("change", updateDateOptions);
+    yearSelect.addEventListener("change", updateDateOptions);
+
+    function updateDateOptions() {
+        const selectedYear = parseInt(yearSelect.value, 10);
+        const selectedMonth = parseInt(monthSelect.value, 10);
+        const maxDate = new Date(selectedYear, selectedMonth, 0).getDate();
+        dateSelect.innerHTML = "";
+
+        for (let i = 1; i <= maxDate; i++) {
+            const option = document.createElement("option");
+            option.textContent = i;
+            dateSelect.appendChild(option);
+        }
+    }
+</script>
+</body>
+</html>
