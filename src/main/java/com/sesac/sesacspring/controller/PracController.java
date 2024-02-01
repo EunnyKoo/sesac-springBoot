@@ -1,11 +1,9 @@
 package com.sesac.sesacspring.controller;
 
+import com.sesac.sesacspring.vo.PracVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PracController {
@@ -32,22 +30,24 @@ public class PracController {
         return "practice2";
     }
 
-    @PostMapping("/postInfo")
-    public String postInformation(
-            @RequestParam(value = "name", required = false) String a,
-            @RequestParam(value = "gender", required = false) String b,
-            @RequestParam(value = "year", required = false) String c,
-            @RequestParam(value = "month", required = false) String d,
-            @RequestParam(value = "day", required = false) String e,
-            @RequestParam(value = "interest", required = false) String f,
-            Model model
-    ){
-        model.addAttribute("name", a);
-        model.addAttribute("gender", b);
-        model.addAttribute("year", c);
-        model.addAttribute("month", d);
-        model.addAttribute("day", e);
-        model.addAttribute("interest", f);
-        return "practice3";
+//    @PostMapping("/postInfo")
+//    public String postInformation(
+//            @RequestParam(value = "name", required = false) String a,
+//            @RequestParam(value = "gender", required = false) String b,
+//            @RequestParam(value = "year", required = false) String c,
+//            @RequestParam(value = "interest", required = false) String f,
+//            Model model
+//    ){
+//        model.addAttribute("name", a);
+//        model.addAttribute("gender", b);
+//        model.addAttribute("year", c);
+//        model.addAttribute("interest", f);
+//        return "practice3";
+//    }
+
+    @PostMapping("/login")
+    @ResponseBody
+    public String login(@RequestBody PracVO pracVO){
+        return pracVO.getName()+"님 환영합니다.";
     }
 }

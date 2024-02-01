@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <!--    <div>-->
@@ -15,7 +16,7 @@
 <!--        <button type="submit">Get 전송</button>-->
 <!--    </form>-->
 
-    <form action="/postInfo" method="post" target="_blank" name="register">
+    <form action="/login" method="post" target="_blank" name="register">
         이름 <input type="text" name="name" required minlength="2"/>
         <fieldset>
             <legend>성별</legend>
@@ -26,8 +27,6 @@
         <fieldset>
             <legend>생년월일</legend>
             <select name="year" id="year"></select>
-            <select name="month" id="month"></select>
-            <select name="day" id="day"></select>
         </fieldset>
 
         <fieldset>
@@ -39,13 +38,11 @@
 
         <br />
 
-        <input type="submit" value="회원가입">
+        <button type="button" onclick="axiosLoginPost()">회원가입</button>
     </form>
 
 <script>
     const yearSelect = document.getElementById("year");
-    const monthSelect = document.getElementById("month");
-    const dateSelect = document.getElementById("date");
 
     for (let i = 1930; i <= 2023; i++) {
         const option = document.createElement("option");
@@ -53,21 +50,29 @@
         yearSelect.appendChild(option);
     }
 
-    monthSelect.addEventListener("change", updateDateOptions);
-    yearSelect.addEventListener("change", updateDateOptions);
+   function axiosLoginPost() {
+    const formData = new FormData(document.forms.register);
+    const jsonData = {};
 
-    function updateDateOptions() {
-        const selectedYear = parseInt(yearSelect.value, 10);
-        const selectedMonth = parseInt(monthSelect.value, 10);
-        const maxDate = new Date(selectedYear, selectedMonth, 0).getDate();
-        dateSelect.innerHTML = "";
+    formData.forEach((value, key) => {
+        jsonData[key] = value;
+    });
 
-        for (let i = 1; i <= maxDate; i++) {
-            const option = document.createElement("option");
-            option.textContent = i;
-            dateSelect.appendChild(option);
-        }
-    }
+    axios({
+        method: "POST",
+        url: "/login",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        data: JSON.stringify(jsonData),
+    }).then((res) => {
+        console.log("res", res);
+        const name = res.data;
+        console.log(name);
+    }).catch((error) => {
+        console.error("Error:", error);
+    });
+}
 </script>
 </body>
 </html>

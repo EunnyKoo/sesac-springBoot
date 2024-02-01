@@ -1,6 +1,7 @@
 package com.sesac.sesacspring.controller;
 
 import com.sesac.sesacspring.dto.UserDTO;
+import com.sesac.sesacspring.vo.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -140,4 +141,99 @@ public class MainController {
     // 일반 폼 전송은  www-x-form-urlencoded 형식이기 때문에
     // get이든 post든 요청의 본문에 데이터가 들어가는 게 아닌 폼 데이터 형태로
     // url로 데이터가 전송됨 => 즉, 일반 폼전송은 RequestBody 사용 불가
+
+    // 일반폼전송 -VO
+    @GetMapping("/vo/response1")
+    @ResponseBody
+    public String voResponse1(UserVO userVO){
+        return userVO.getName() + " " + userVO.getAge();
+    } // => null
+
+    @PostMapping("/vo/response2")
+    @ResponseBody
+    public String voResponse2(UserVO userVO){
+        return userVO.getName() + " " + userVO.getAge();
+    } // => null
+
+    @PostMapping("/vo/response3")
+    @ResponseBody
+    public String voResponse3(@RequestBody UserVO userVO){
+        return userVO.getName() + " " + userVO.getAge();
+    } // => x (오류 발생)
+
+    //////////// -- axios를 이용한 데이터 처리
+    @GetMapping("/axios/response1")
+    @ResponseBody
+    public String axiosResponse1(@RequestParam String name, @RequestParam String age){
+        return name + " " + age;
+    } //1. Axios - get - @RequestParam => O
+
+    @GetMapping("/axios/response2")
+    @ResponseBody
+    public String axiosResponse2(UserDTO userDTO){
+        // @ModelAttribute
+        // axios = application/json
+        return userDTO.getName() + " " + userDTO.getAge();
+    } // 2. Axios - get - @ModelAttribute -> O
+
+    @PostMapping("/axios/response3")
+    @ResponseBody
+    // url이었는데, axios post는 url에 데이터가 x
+    // url에 아무것도 없는데 name, age reqyired=true기 때문에 에러가 발생
+    // required=false 적어줬으면 에러가 발생하지 않겠죠?
+    public String axiosRes3(@RequestParam String name, @RequestParam String age){
+        return "이름: " + name + ", 나이: "+ age;
+    }
+
+    @PostMapping("/axios/response4")
+    @ResponseBody
+    public String axiosRes4(UserDTO userDTO){
+        return "이름:" + userDTO.getName() + ", 나이: "+ userDTO.getAge();
+        // axios + post 데이터 -> @ModelAttribute o(null)
+    }
+    // ModelAttribute 를 이용해 데이터를 보낼 때 null
+    // axios로 보내면 url로 데이터를 보내는 게 아니라 본문으로 데이터를 보내게 된다.
+    // 즉, @ModelAttribute가 값을 볼 수 없음
+
+    @PostMapping("/axios/response5")
+    @ResponseBody
+    public String axiosRes5(@RequestBody UserDTO userDTO){
+        return "이름:" + userDTO.getName() + ", 나이: "+ userDTO.getAge();
+    } // axios + post 데이터 -> @RequestBody o
+
+    // ========== VO 이용 with. axios ==========
+    @GetMapping("/axios/vo/response1")
+    @ResponseBody
+    public String axiosVoRes1(@RequestParam String name, @RequestParam String age) {
+        return "이름: " + name + ", 나이: " + age;
+    }
+
+    @GetMapping("/axios/vo/response2")
+    @ResponseBody
+    public String axiosVoRes2(UserVO userVO) {
+        return "이름: "+ userVO.getName() + ", 나이: "+ userVO.getAge();
+    }
+
+    @PostMapping("/axios/vo/response3")
+    @ResponseBody
+    public String axiosVoRes3(@RequestParam String name, @RequestParam String age) {
+        return "이름: " + name + ", 나이: " + age;
+    }
+
+    @PostMapping("/axios/vo/response4")
+    @ResponseBody
+    public String axiosVoRes4(UserVO userVO){
+        return "이름: "+ userVO.getName() + ", 나이: "+ userVO.getAge();
+    }
+
+    @PostMapping("/axios/vo/response5")
+    @ResponseBody
+    public String axiosVoRes5(@RequestBody UserVO userVO){
+        // axios post로 데이터를 보내면 요청의 본문(body)에 데이터가 들어간다.
+        // @RequestBody는 요청의 본문에 있는 데이터를 읽을 수 있다.
+        // userVO 클래스는 setter 메소드가 없어요.
+        // @RequestBody는 데이터를 각각의 필드(변수)에 직접적으로 값 주입
+        // @RequestBody는 userVO UserDTO와 상관없이 SETTER 메소드의 유무와 관계없이 변수에 값을 넣을 수 있다.
+        return "이름: "+ userVO.getName() + ", 나이: "+ userVO.getAge();
+    }
 }
