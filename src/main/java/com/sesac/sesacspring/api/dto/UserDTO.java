@@ -1,4 +1,4 @@
-package com.sesac.sesacspring.dto;
+package com.sesac.sesacspring.api.dto;
 
 import lombok.Data;
 

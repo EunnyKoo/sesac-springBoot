@@ -1,6 +1,6 @@
-package com.sesac.sesacspring.controller;
+package com.sesac.sesacspring.api.controller;
 
-import com.sesac.sesacspring.vo.PracVO;
+import com.sesac.sesacspring.api.vo.PracVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

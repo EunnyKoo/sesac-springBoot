@@ -1,6 +1,6 @@
-package com.sesac.sesacspring.controller;
+package com.sesac.sesacspring.api.controller;
 
-import com.sesac.sesacspring.Person;
+import com.sesac.sesacspring.api.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

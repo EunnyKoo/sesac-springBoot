@@ -1,9 +1,9 @@
-package com.sesac.sesacspring.dto;
+package com.sesac.sesacspring.api.vo;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
-public class PracDTO {
+@Getter
+public class PracVO {
     private String name;
     private String gender;
     private String birth;

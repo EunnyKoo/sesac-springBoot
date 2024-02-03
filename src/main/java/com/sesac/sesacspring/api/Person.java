@@ -1,4 +1,4 @@
-package com.sesac.sesacspring;
+package com.sesac.sesacspring.api;
 
 import lombok.Getter;
 import lombok.Setter;
