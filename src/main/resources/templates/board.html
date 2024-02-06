@@ -60,23 +60,19 @@
 </form>
 <table border="1">
     <tr>
-        <th>No.</th>
         <th>ID</th>
         <th>제목</th>
         <th>작성자</th>
-        <th>작성일</th>
         <th>수정</th>
         <th>삭제</th>
     </tr>
     <!--    타임리프 문법 이용해서 게시판 글 보여주기 -->
     <tr th:each="board:${board}">
-        <td th:text="${board.no}"></td>
         <td th:text="${board.id}"></td>
         <td th:text="${board.title}"></td>
         <td th:text="${board.writer}"></td>
-        <td th:text="${board.date}"></td>
-        <td><button>수정</button></td>
-        <td><button>삭제</button></td>
+        <td><button th:onclick="editBoard([[${board.getId()}]])">수정</button></td>
+        <td><button th:onclick="deleteBoard([[${board.getId()}]])">삭제</button></td>
     </tr>
 </table>
 </body>

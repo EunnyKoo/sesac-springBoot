@@ -6,10 +6,7 @@ import com.sesac.sesacspring.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,30 @@ public class BoardController {
         model.addAttribute("board", result);
         return "board";
     }
+    @PostMapping("") // /board/mybatis
+    @ResponseBody // 응답을 주기 위함
+    public boolean insertBoard(@RequestBody BoardDTO boardDTO){
+        // 2. 게시글 작성
+        boardService.insertBoard(boardDTO);
+        return true;
+    }
 
+    @PatchMapping("") // /board/mybatis
+    @ResponseBody //이게 없음 템플릿 파일을 보여주는데,
+    // void라면 현재 template을 그대로 다시 보여준다.
+    public void patchBoard(@RequestBody BoardDTO boardDTO){
+        boardService.patchBoard(boardDTO);
+    }
+
+    @DeleteMapping("")
+    @ResponseBody
+    public void deleteBoard(@RequestParam int id) {
+        boardService.deleteBoard(id);
+    }
+
+    @GetMapping("/search") // /board/mybatis/search
+    @ResponseBody
+    public int searchBoard(@RequestParam String word){
+        return boardService.searchBoard(word);
+    }
 }

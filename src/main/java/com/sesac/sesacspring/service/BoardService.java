@@ -20,16 +20,40 @@ public class BoardService {
 
         for(Board board : boards){
             BoardDTO boardDTO = new BoardDTO();
-            boardDTO.setNo(board.getNo() + 100);
             boardDTO.setId(board.getId());
             boardDTO.setWriter(board.getWriter());
             boardDTO.setTitle(board.getTitle());
-            boardDTO.setDate(board.getDate());
 
             result.add(boardDTO);
         }
         return result;
     }
 
+    public boolean insertBoard(BoardDTO boardDTO) {
+        Board board;
+        board = new Board();
+        board.setTitle(boardDTO.getTitle());
+        board.setWriter(boardDTO.getWriter());
+        boardMapper.insertBoard(board);
+        return true;
+    }
 
+    public void patchBoard(BoardDTO boardDTO) {
+        // board.getBoardID // title, content, writer
+        Board board;
+        board = new Board();
+        board.setId(boardDTO.getId());
+        board.setTitle(boardDTO.getTitle());
+        board.setWriter(boardDTO.getWriter());
+        boardMapper.patchBoard(board);
+    }
+
+    public void deleteBoard(int id) {
+        boardMapper.deleteBoard(id);
+    }
+
+    public int searchBoard(String word) {
+        List<Board> result = boardMapper.searchBoard(word);
+        return result.size();
+    }
 }
