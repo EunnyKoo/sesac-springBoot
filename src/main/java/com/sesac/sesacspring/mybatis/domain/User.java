@@ -1,4 +1,4 @@
-package com.sesac.sesacspring.domain;
+package com.sesac.sesacspring.mybatis.domain;
 
 import lombok.Data;
 
