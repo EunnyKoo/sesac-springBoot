@@ -9,7 +9,7 @@
             // 검색어가 있으면 일치하는 제목의 개수를 가져오고
             // 검색어가 없으면 전체 게시글이 몇 개인지 가져온다.
             var form = document.getElementById('form_search');
-            axios.get(`/board/search?word=${form.word.value}`).then((res) => {
+            axios.get(`/board/mybatis/search?word=${form.word.value}`).then((res) => {
                 alert('일치하는 제목의 게시글은 ' + res.data + '개 입니다.');
             });
         }
@@ -19,11 +19,10 @@
             var form = document.getElementById('form_board');
             var data = {
                 title: form.title.value,
-                content: form.content.value,
                 writer: form.writer.value,
             };
 
-            axios.post(`/board`, data).then((res) => {
+            axios.post(`/board/mybatis`, data).then((res) => {
                 location.reload();
             });
         }
@@ -32,15 +31,14 @@
             var data = {
                 id,
                 title: form.title.value,
-                content: form.content.value,
                 writer: form.writer.value,
             };
-            axios.patch(`/board`, data).then((res) => {
+            axios.patch(`/board/mybatis`, data).then((res) => {
                 location.reload();
             });
         }
         function deleteBoard(id) {
-            axios.delete(`/board?id=${id}`).then((res) => {
+            axios.delete(`/board/mybatis?id=${id}`).then((res) => {
                 location.reload();
             });
         }
@@ -55,7 +53,6 @@
 </form>
 <form id="form_board">
     <input type="text" name="title" placeholder="제목" />
-    <input type="text" name="content" placeholder="내용" />
     <input type="text" name="writer" placeholder="작성자" />
     <button type="button" onclick="writeBoard()">
         작성

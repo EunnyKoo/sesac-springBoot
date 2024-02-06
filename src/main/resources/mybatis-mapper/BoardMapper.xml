@@ -5,6 +5,6 @@
 <!--xml파일 작성법-->
 <mapper namespace="com.sesac.sesacspring.mapper.BoardMapper">
     <select id="selectAll" resultType="com.sesac.sesacspring.domain.Board">
-        SELECT board.* FROM board
+        SELECT * FROM board
     </select>
 </mapper>

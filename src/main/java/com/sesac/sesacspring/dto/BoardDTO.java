@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Data
 public class BoardDTO {
+    // 값을 전달하기 위함
     private int no;
     private int id;
     private String writer;

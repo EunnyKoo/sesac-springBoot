@@ -14,8 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/board/mybatis")
 public class BoardController {
+    // 5개의 메소드
+    // 1. 전체 조회 => board.html 렌더링
+    // 2. 작성(create): axios (동적폼전송, post) = @RequestBody
+    // 3. 수정(update): axios (동적폼전송, patch)
+    // 4. 삭제(delete): axios (동적폼전송, delete)
+    // 5. 검색(조회): axios (동적폼전송, get)
 
     @Autowired
     BoardService boardService;
@@ -27,21 +33,4 @@ public class BoardController {
         return "board";
     }
 
-    @PostMapping("")
-    public String getBoardInsert(
-            @RequestParam int no,
-            @RequestParam int id,
-            @RequestParam String title,
-            @RequestParam String writer,
-            @RequestParam String date
-    ){
-        boardService.createBoard(no, id, title, writer, date);
-        return "board";
-    }
-
-    @PostMapping("/update")
-    public String getBoardUpdate(Board board){
-        boardService.updateBoard(board);
-       return "board";
-    }
 }

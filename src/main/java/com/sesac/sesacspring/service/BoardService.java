@@ -20,7 +20,7 @@ public class BoardService {
 
         for(Board board : boards){
             BoardDTO boardDTO = new BoardDTO();
-            boardDTO.setNo(board.getNo());
+            boardDTO.setNo(board.getNo() + 100);
             boardDTO.setId(board.getId());
             boardDTO.setWriter(board.getWriter());
             boardDTO.setTitle(board.getTitle());
@@ -31,11 +31,5 @@ public class BoardService {
         return result;
     }
 
-    public void createBoard(int no, int id, String title, String writer, String date) {
-        boardMapper.createBoard(no, id, title, writer, date);
-    }
 
-    public void updateBoard(Board board) {
-        boardMapper.updateBoard(board);
-    }
 }
