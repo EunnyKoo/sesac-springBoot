@@ -6,7 +6,6 @@ import com.sesac.sesacspring.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,20 +24,29 @@ public class StudentController {
     @GetMapping("/insert") // /student/insert?name=이름
     public String insertStudent(@RequestParam String name, @RequestParam String nickname, @RequestParam Student.LoginType type){
         // 이름, 닉네임, login_type
-        studentService.insertStudent(name, nickname, type);
-        return name + type;
+        return studentService.insertStudent(name, nickname, type);
     }
 
     //3. 조건에 따른 검색(select * from student name='')
     //4. 조건에 따른 검색(2) (select * from student where id=)
 
-//    @GetMapping("/search")
-//    public ? getSearch(@RequestBody int id){
-//
-//    }
+    @GetMapping("/search/name")  // student/search/name?name=이름
+    public String getSearch(@RequestParam String name){
+        return studentService.searchStudentByName(name);
+    }
 
-    //    @GetMapping("/count")
-//    public int getCountAll(){
-//
-//    }
+    @GetMapping("/search/id")
+    public String searchStudentById(@RequestParam int id){
+        return studentService.searchStudentById(id);
+    }
+
+    @GetMapping("/count/nickname") // /student/count/nickname?nickname=값
+    public String countStudent(@RequestParam String nickname){
+        return studentService.countStudent(nickname);
+    }
+
+    @GetMapping("/update/id")
+    public String updateStudent(@RequestParam int id, @RequestParam String name){
+        return studentService.updateStudent(id, name);
+    }
 }
