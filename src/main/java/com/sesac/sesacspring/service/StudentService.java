@@ -30,4 +30,12 @@ public class StudentService {
         }
         return students;
     }
+
+    public String insertStudent(String name, String nickname, Student.LoginType type) {
+        // 받아온 데이터로 repository의 save 메소드 호출
+        Student student = Student.builder().name(name).nickname(nickname).loginType(type).build();
+        Student newStudent = studentRepository.save(student);
+        //newStudent: save를 한 후 반환되는 Entity 객체
+        return newStudent.getId() + newStudent.getName();
+    }
 }
